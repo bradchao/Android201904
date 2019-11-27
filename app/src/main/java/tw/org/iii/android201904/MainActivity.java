@@ -16,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private SimpleAdapter adapter;
     private LinkedList<HashMap<String,String>> data;
+    private String[] from = {"brad"};
+    private int[] to = {R.id.itemTitle};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private void initListView(){
         data = new LinkedList<>();
 
-        HashMap<String,String> row = new HashMap<>();
-        row.put("title", "Title1");
-        data.add(row);
+        for(int i=0 ; i<100; i++) {
+            HashMap<String, String> row = new HashMap<>();
+            row.put(from[0], "Title " + (int)(Math.random()*49+1));
+            data.add(row);
+        }
 
-        adapter = new SimpleAdapter(this, data, R.layout.item, null, null);
+        adapter = new SimpleAdapter(this, data, R.layout.item, from, to);
         listView.setAdapter(adapter);
     }
 }
