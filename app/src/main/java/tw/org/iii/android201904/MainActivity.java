@@ -51,7 +51,12 @@ public class MainActivity extends AppCompatActivity {
         row.put(from[0], "Title " + (int)(Math.random()*49+101)  );
         row.put(from[1], "content ... ");
         row.put(from[2], "NEW");
-        data.add(row);
+        data.add(0, row);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void clear(View view) {
+        data.clear();
         adapter.notifyDataSetChanged();
     }
 }
