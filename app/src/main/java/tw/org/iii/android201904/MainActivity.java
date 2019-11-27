@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private LinkedList<HashMap<String,String>> data;
     private String[] from = {"title","content","love"};
     private int[] to = {R.id.itemTitle, R.id.itemContent, R.id.itemLove};
+
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
             data.add(row);
         }
         // ----------------------------------
-        adapter = new SimpleAdapter(this, data, R.layout.item, from, to);
-        listView.setAdapter(adapter);
+//        adapter = new SimpleAdapter(this, data, R.layout.item, from, to);
+//        listView.setAdapter(adapter);
+        myAdapter = new MyAdapter();
+        listView.setAdapter(myAdapter);
         // -------------------------------------
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,4 +90,27 @@ public class MainActivity extends AppCompatActivity {
         data.clear();
         adapter.notifyDataSetChanged();
     }
+
+    private class MyAdapter extends BaseAdapter {
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return null;
+        }
+    }
+
 }
