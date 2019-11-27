@@ -45,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
             row.put("other", "data ...");
             data.add(row);
         }
-
+        // ----------------------------------
         adapter = new SimpleAdapter(this, data, R.layout.item, from, to);
         listView.setAdapter(adapter);
+        // -------------------------------------
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
