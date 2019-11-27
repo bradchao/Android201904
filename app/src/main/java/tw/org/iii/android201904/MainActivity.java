@@ -132,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Log.v("brad", "click: " + position);
+                    data.get(position).put(from[2], data.get(position).get(from[2]).equals("OK")?"NEW":"OK");
+                    ((ImageView)v).setImageResource(
+                            data.get(position).get(from[2]).equals("OK")?R.drawable.ok:R.drawable.xx);
                 }
             });
 
