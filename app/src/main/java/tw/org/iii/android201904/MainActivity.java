@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,11 +41,24 @@ public class MainActivity extends AppCompatActivity {
             row.put(from[0], "Title " + (int)(Math.random()*49+1));
             row.put(from[1], "content ... ");
             row.put(from[2], "OK");
+            row.put("other", "data ...");
             data.add(row);
         }
 
         adapter = new SimpleAdapter(this, data, R.layout.item, from, to);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
+                showData(position);
+            }
+        });
+    }
+
+    private void showData(int index){
+        
     }
 
     public void newdata(View view) {
