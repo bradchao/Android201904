@@ -3,6 +3,7 @@ package tw.org.iii.android201904;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -16,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private SimpleAdapter adapter;
     private LinkedList<HashMap<String,String>> data;
-    private String[] from = {"brad"};
-    private int[] to = {R.id.itemTitle};
+    private String[] from = {"title","content","love"};
+    private int[] to = {R.id.itemTitle, R.id.itemContent, R.id.itemLove};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +37,21 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0 ; i<100; i++) {
             HashMap<String, String> row = new HashMap<>();
             row.put(from[0], "Title " + (int)(Math.random()*49+1));
+            row.put(from[1], "content ... ");
+            row.put(from[2], "OK");
             data.add(row);
         }
 
         adapter = new SimpleAdapter(this, data, R.layout.item, from, to);
         listView.setAdapter(adapter);
+    }
+
+    public void newdata(View view) {
+        HashMap<String, String> row = new HashMap<>();
+        row.put(from[0], "Title " + (int)(Math.random()*49+101)  );
+        row.put(from[1], "content ... ");
+        row.put(from[2], "NEW");
+        data.add(row);
+        adapter.notifyDataSetChanged();
     }
 }

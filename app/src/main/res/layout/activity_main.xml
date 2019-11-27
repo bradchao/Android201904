@@ -18,12 +18,13 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Test1"
+            android:onClick="newdata"
             />
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Test1"
+            android:text="Test2"
             />
     </LinearLayout>
     <ListView
