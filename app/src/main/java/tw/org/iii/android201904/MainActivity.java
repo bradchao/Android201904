@@ -1,5 +1,6 @@
 package tw.org.iii.android201904;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -58,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showData(int index){
-        
+        new AlertDialog.Builder(this)
+                .setTitle("Brad")
+                .setMessage(data.get(index).get(from[0]) + "\n" +
+                        data.get(index).get("other"))
+                .setPositiveButton("OK", null)
+                .setCancelable(false)
+                .create()
+                .show();
     }
 
     public void newdata(View view) {
