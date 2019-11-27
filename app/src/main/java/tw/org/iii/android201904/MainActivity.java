@@ -4,11 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -22,8 +25,8 @@ import java.util.LinkedList;
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private SimpleAdapter adapter;
-    private LinkedList<HashMap<String,String>> data;
-    private String[] from = {"title","content","love"};
+    private LinkedList<HashMap<String, String>> data;
+    private String[] from = {"title", "content", "love"};
     private int[] to = {R.id.itemTitle, R.id.itemContent, R.id.itemLove};
 
     private MyAdapter myAdapter;
@@ -39,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initListView(){
+    private void initListView() {
         data = new LinkedList<>();
 
-        for(int i=0 ; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             HashMap<String, String> row = new HashMap<>();
-            row.put(from[0], "Title " + (int)(Math.random()*49+1));
+            row.put(from[0], "Title " + (int) (Math.random() * 49 + 1));
             row.put(from[1], "content ... ");
             row.put(from[2], "OK");
             row.put("other", "data ...");
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showData(int index){
+    private void showData(int index) {
         new AlertDialog.Builder(this)
                 .setTitle("Brad")
                 .setMessage(data.get(index).get(from[0]) + "\n" +
@@ -79,22 +82,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void newdata(View view) {
         HashMap<String, String> row = new HashMap<>();
-        row.put(from[0], "Title " + (int)(Math.random()*49+101)  );
+        row.put(from[0], "Title " + (int) (Math.random() * 49 + 101));
         row.put(from[1], "content ... ");
         row.put(from[2], "NEW");
         data.add(0, row);
-        adapter.notifyDataSetChanged();
+
+        //adapter.notifyDataSetChanged();
+        myAdapter.notifyDataSetChanged();
     }
 
     public void clear(View view) {
         data.clear();
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
+        myAdapter.notifyDataSetChanged();
     }
+
 
     private class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return 0;
+            return data.size();
         }
 
         @Override
@@ -108,8 +115,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+
+            convertView = inflater.inflate(R.layout.itemv2, null);
+
+            TextView title  = convertView.findViewById(R.id.itemv2Title);
+            TextView content = convertView.findViewById(R.id.itemv2Content);
+            ImageView love = convertView.findViewById(R.id.itemv2Love);
+            title.setText(data.get(position).get(from[0]));
+            content.setText(data.get(position).get(from[1]));
+            love.setImageResource(
+                    data.get(position).get(from[2]).equals("OK")?R.drawable.ok:R.drawable.xx);
+
+            love.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.v("brad", "click: " + position);
+                }
+            });
+
+
+            return convertView;
         }
     }
 
